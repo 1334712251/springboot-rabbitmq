@@ -32,12 +32,14 @@ public class TtlQueueConfig {
     @Bean("queueA")
     public Queue queueA() {
         Map<String, Object> args = new HashMap<>(3);
-        //声明当前队列绑定的死信交换机
+        //声明当前队列绑定的死信交换机，设置DLX
         args.put("x-dead-letter-exchange", Y_DEAD_LETTER_EXCHANGE);
         //声明当前队列的死信路由 key
-        args.put("x-dead-letter-routing-key", "YD");
-        //声明队列的 TTL
+        args.put("x-dead-letter-routing-key", "YD");     ////设置DLX的路由键
+        //设置队列上所有的消息的有效期,单位为毫秒
         args.put("x-message-ttl", 10000);
+        //设置队列有效期，单位为毫秒
+//        args.put("x-message-ttl", 10000);
         //durable持久化
         return QueueBuilder.durable(QUEUE_A).withArguments(args).build();
     }
@@ -47,11 +49,11 @@ public class TtlQueueConfig {
     @Bean("queueB")
     public Queue queueB() {
         Map<String, Object> args = new HashMap<>(3);
-        //声明当前队列绑定的死信交换机
+        //声明当前队列绑定的死信交换机，设置DLX
         args.put("x-dead-letter-exchange", Y_DEAD_LETTER_EXCHANGE);
         //声明当前队列的死信路由 key
-        args.put("x-dead-letter-routing-key", "YD");
-        //声明队列的 TTL
+        args.put("x-dead-letter-routing-key", "YD");  //设置DLX的路由键
+        //声明队列消息的 TTL
         args.put("x-message-ttl", 40000);
         return QueueBuilder.durable(QUEUE_B).withArguments(args).build();
     }
@@ -66,7 +68,7 @@ public class TtlQueueConfig {
 
     //队列 A 绑定 X 交换机
     @Bean
-    public Binding queueaBindingX(@Qualifier("queueA") Queue queueA,
+    public Binding queueABindingX(@Qualifier("queueA") Queue queueA,
                                   @Qualifier("xExchange") DirectExchange xExchange) {
         return BindingBuilder.bind(queueA).to(xExchange).with("XA");
     }
@@ -74,7 +76,7 @@ public class TtlQueueConfig {
 
     //队列 B 绑定 X 交换机
     @Bean
-    public Binding queuebBindingX(@Qualifier("queueB") Queue queue1B,
+    public Binding queueBBindingX(@Qualifier("queueB") Queue queue1B,
                                   @Qualifier("xExchange") DirectExchange xExchange) {
         return BindingBuilder.bind(queue1B).to(xExchange).with("XB");
     }
@@ -82,7 +84,7 @@ public class TtlQueueConfig {
 
     //死信队列 QD 绑定 Y 交换机
     @Bean
-    public Binding deadLetterBindingQAD(@Qualifier("queueD") Queue queueD,
+    public Binding queueDBindingY(@Qualifier("queueD") Queue queueD,
                                         @Qualifier("yExchange") DirectExchange yExchange) {
         return BindingBuilder.bind(queueD).to(yExchange).with("YD");
     }
