@@ -19,4 +19,11 @@ public class DeadLetterQueueConsumer {
         String msg = new String(message.getBody());
         log.info("当前时间：{},收到死信队列信息{}", new Date().toString(), msg);
     }
+
+
+    @RabbitListener(queues = "delayed.queue")
+    public void receiveDelayedQueue(Message message, Channel channel) throws IOException {
+        String msg = new String(message.getBody());
+        log.info("当前时间：{},收到延迟队列信息{}", new Date().toString(), msg);
+    }
 }
