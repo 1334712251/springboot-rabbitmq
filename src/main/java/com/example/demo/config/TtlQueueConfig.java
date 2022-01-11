@@ -73,8 +73,6 @@ public class TtlQueueConfig {
 
 
 
-
-
     //死信队列 QD
     @Bean("queueD")
     public Queue queueD() {
