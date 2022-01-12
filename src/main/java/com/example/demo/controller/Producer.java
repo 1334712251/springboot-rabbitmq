@@ -48,19 +48,4 @@ public class Producer {
 
     }
 
-
-    @GetMapping("/sendMessage/{message}")
-    public void sendMessageBackup(@PathVariable String message) {
-//        //指定消息 id 为 1
-//        CorrelationData correlationData1 = new CorrelationData("1");
-
-        String routingKey = "key1";
-        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME, routingKey, message + routingKey);
-
-//        CorrelationData correlationData2 = new CorrelationData("2");
-        routingKey = "key2";
-//        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME, routingKey + "fff", message + routingKey, correlationData2);
-        log.info("发送消息内容:{}", message);
-
-    }
 }

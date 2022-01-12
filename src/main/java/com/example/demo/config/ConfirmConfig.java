@@ -10,12 +10,12 @@ public class ConfirmConfig {
 
     public static final String CONFIRM_EXCHANGE_NAME = "confirm.exchange";
     public static final String CONFIRM_QUEUE_NAME = "confirm.queue";
-    public static final String BACKUP_EXCHANGE_NAME = "backup_exchange_name";
-    public static final String WARNING_QUEUE_NAME = "warning_queue_name";
-    public static final String BACKUP_QUEUE_NAME = "backup_queue_name";
+    public static final String BACKUP_EXCHANGE_NAME = "backup_exchange";
+    public static final String WARNING_QUEUE_NAME = "warning_queue";
+    public static final String BACKUP_QUEUE_NAME = "backup_queue";
 
 
-//    //声明确认 Exchange 交换机
+//    //声明确认交换机 Exchange
 //    @Bean("confirmExchange")
 //    public DirectExchange confirmExchange() {
 //        return new DirectExchange(CONFIRM_EXCHANGE_NAME);
