@@ -41,6 +41,8 @@ public class Producer {
         String routingKey = "key1";
         rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME, routingKey, message + routingKey, correlationData1);
 
+        rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME, routingKey, message + routingKey, correlationData1);
+
         CorrelationData correlationData2 = new CorrelationData("2");
         routingKey = "key2";
         rabbitTemplate.convertAndSend(CONFIRM_EXCHANGE_NAME, routingKey + "fff", message + routingKey, correlationData2);

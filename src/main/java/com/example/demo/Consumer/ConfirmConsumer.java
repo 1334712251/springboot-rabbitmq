@@ -12,6 +12,11 @@ public class ConfirmConsumer {
 
     @RabbitListener(queues = CONFIRM_QUEUE_NAME)
     public void receiveMsg(Message message) {
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         String msg = new String(message.getBody());
         log.info("接受到队列 confirm.queue 消息:{}", msg);
     }
